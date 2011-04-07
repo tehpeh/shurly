@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Shurly" do
-  it "should respond to /" do
+  it "responds to /" do
     get '/'
     last_response.should be_ok
   end

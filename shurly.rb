@@ -12,5 +12,5 @@ get '/' do
 end
 
 get '/admin' do
-  
+  haml :'admin/index'
 end
