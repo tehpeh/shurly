@@ -1,4 +1,5 @@
 require 'bundler/setup'
-require 'shurly'
+require File.expand_path(File.join(File.dirname(__FILE__), 'shurly'))
+
 
 run Sinatra::Application
