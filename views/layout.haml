@@ -10,11 +10,12 @@
       #wrapper-inner
         #container
           #header
-            %h1#title Shurly (you can't be serious)
+            %h1#title Shurly
+            /...you can't be serious
             /I am serious... and don't call me Shirley.
 
           #content
             = yield
 
           #footer
-            &copy; 2011 Australian Medical Council
+            = "&copy; #{Date.today.year} Australian Medical Council"

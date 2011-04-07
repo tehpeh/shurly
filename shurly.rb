@@ -10,3 +10,7 @@ end
 get '/' do
   haml :index
 end
+
+get '/admin' do
+  
+end
