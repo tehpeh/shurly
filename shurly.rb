@@ -7,8 +7,10 @@ configure(:development) do |c|
   #c.also_reload "*.rb"
 end
 
+HOMEPAGE = 'http://www.amc.org.au/'
+
 get '/' do
-  haml :index
+  redirect HOMEPAGE
 end
 
 get '/admin' do
