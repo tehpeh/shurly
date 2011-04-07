@@ -2,12 +2,12 @@ require 'sinatra'
 require 'haml'
 require 'active_record'
 
-configure(:development) do |c|
+configure :development do
   require "sinatra/reloader"
-  #c.also_reload "*.rb"
+  #also_reload "*.haml"
 end
 
-HOMEPAGE = 'http://www.amc.org.au/'
+HOMEPAGE = 'http://www.amc.org.au/' unless defined?(HOMEPAGE)
 
 get '/' do
   redirect HOMEPAGE
