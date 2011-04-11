@@ -1,12 +1,13 @@
 require 'sinatra'
 require 'haml'
 require 'active_record'
-require File.expand_path(File.join(File.dirname(__FILE__), 'lib/application'))
-include Shurly::Application
+require File.expand_path(File.join(File.dirname(__FILE__), 'lib/security'))
+include Shurly::Security
 
-configure :development do
+configure :development do |c|
   require "sinatra/reloader"
-  #also_reload "*.haml"
+  #c.dont_reload "log/*"
+  #c.also_reload "*.haml"
 end
 
 HOMEPAGE = 'http://www.amc.org.au/' unless defined?(HOMEPAGE)

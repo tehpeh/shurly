@@ -1,6 +1,6 @@
 module Shurly
 
-  module Application
+  module Security
 
   protected
 
