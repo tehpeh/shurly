@@ -1,7 +1,7 @@
 require 'sinatra/base'
 require 'haml'
 require 'active_record'
-require File.expand_path(File.join(File.dirname(__FILE__), 'lib/security'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'lib', 'security'))
 include Application::Security
 
 class Shurly < Sinatra::Base

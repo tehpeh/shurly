@@ -3,7 +3,6 @@ require 'rack/test'
 require 'rspec'
 require 'rspec/autorun'
 
-#set :environment, 'test'
 ENV['RACK_ENV'] = 'test'
 
 RSpec.configure do |config|

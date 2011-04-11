@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Sinatra::Application do
+describe Shurly do
   describe 'GET /' do
     it 'redirects to home' do
       get '/'
@@ -11,6 +11,7 @@ describe Sinatra::Application do
   
   describe 'GET /admin' do
     it 'renders ok' do
+      stub protected_by_ip
       get '/admin'
       last_response.should be_ok
     end

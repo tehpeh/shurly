@@ -15,4 +15,5 @@ group :test do
   gem 'autotest'
   gem 'ZenTest'
   gem 'rack-test'
+  gem 'capybara'
 end
