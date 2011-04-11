@@ -8,9 +8,9 @@ include Shurly::Security
 configure do
   unless defined?(LOGGER)
     set :logging, false
-    Dir.mkdir('log') unless File.exists?('log')
+    #Dir.mkdir('log') unless File.exists?('log')
     class ::Logger; alias_method :write, :<<; end
-    LOGGER = ::Logger.new("log/#{ENV['RACK_ENV']}.log",'weekly')
+    LOGGER = ::Logger.new STDOUT#("log/#{ENV['RACK_ENV']}.log",'weekly')
     use Rack::CommonLogger, LOGGER
   end
 end
