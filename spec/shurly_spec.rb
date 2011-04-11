@@ -14,8 +14,5 @@ describe Sinatra::Application do
       get '/admin'
       last_response.should be_ok
     end
-    
-    it 'displays a list of long and short urls'
-    # maybe split this out into an integration test
   end
 end

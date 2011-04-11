@@ -3,9 +3,12 @@ require 'rack/test'
 require 'rspec'
 require 'rspec/autorun'
 
-set :environment, :test
+#set :environment, 'test'
+ENV['RACK_ENV'] = 'test'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
-  def app() app ||= Sinatra::Application end
+  def app
+     app ||= Shurly
+  end
 end
