@@ -1,2 +1,4 @@
 .rvmrc
 log/
+config/database.yml
+db/*.sqlite3

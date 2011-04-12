@@ -4,16 +4,15 @@ gem 'sinatra'
 gem 'haml'
 gem 'activerecord'
 gem 'heroku'
+gem 'rake'
 
-group :development do
+group :development, :test do
   gem 'sinatra-reloader'
   gem 'thin'
-end
-
-group :test do
   gem 'rspec'
   gem 'autotest'
   gem 'ZenTest'
   gem 'rack-test'
   gem 'capybara'
+  gem 'sqlite3-ruby', :require => 'sqlite3'
 end

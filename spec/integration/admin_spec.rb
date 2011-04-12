@@ -1,3 +1,4 @@
+require 'spec_helper'
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'shurly'))
 require 'capybara'
 require 'capybara/dsl'
@@ -9,7 +10,7 @@ describe Shurly do
 
   Capybara.app = Shurly.new
 
-  it "does something" do
+  it "displays a list of long and short urls" do
     visit '/admin'
     page.should have_content('Hello World')
   end
