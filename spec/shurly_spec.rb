@@ -10,8 +10,11 @@ describe Shurly do
   end
   
   describe 'GET /admin' do
-    it 'renders ok' do
+    before(:each) do
       stub protected_by_ip
+    end
+    
+    it 'renders ok' do
       get '/admin'
       last_response.should be_ok
     end

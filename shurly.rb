@@ -32,6 +32,7 @@ class Shurly < Sinatra::Base
 
   get '/admin' do
     protected_by_ip
+    @urls = Shurl.all
     haml :'admin/index'
   end
 end
