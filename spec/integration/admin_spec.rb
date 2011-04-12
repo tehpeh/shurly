@@ -12,6 +12,6 @@ describe Shurly do
 
   it "displays a list of long and short urls" do
     visit '/admin'
-    page.should have_content('Hello World')
+    page.should have_content('Shurly')
   end
 end

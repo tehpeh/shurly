@@ -15,4 +15,5 @@ group :development, :test do
   gem 'rack-test'
   gem 'capybara'
   gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'sinatra-activerecord'
 end
