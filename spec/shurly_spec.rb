@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Shurly do
+  include Rack::Test::Methods
+  def app
+    Shurly
+  end
+  
   describe 'GET /' do
     it 'redirects to home' do
       get '/'

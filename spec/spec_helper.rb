@@ -7,14 +7,8 @@ require 'rspec/autorun'
 require 'database_cleaner'
 
 RSpec.configure do |config|
-  config.include Rack::Test::Methods
-  def app
-     app ||= Shurly
-  end
-
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.strategy = :truncation
   end
   
   config.before(:each) do
