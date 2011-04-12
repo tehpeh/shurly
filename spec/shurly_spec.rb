@@ -19,4 +19,25 @@ describe Shurly do
       last_response.should be_ok
     end
   end
+  
+  describe 'GET /qwerty' do
+    let(:url) { mock(Shurl, 
+      :long => 'http://rubygems.org/', 
+      :short => 'qwerty') }
+      
+    before(:each) do
+      Shurl.stub(:find_by_short).and_return(url)
+    end
+      
+    it 'finds a long url' do
+      Shurl.should_receive(:find_by_short)
+      get url.short
+    end
+    
+    it 'redirects to a long url' do
+      get url.short
+      follow_redirect!
+      last_request.url.should eql url.long
+    end
+  end
 end

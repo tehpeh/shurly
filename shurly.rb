@@ -35,4 +35,12 @@ class Shurly < Sinatra::Base
     @urls = Shurl.all
     haml :'admin/index'
   end
+  
+  get %r{^/([a-zA-Z0-9]{6})$} do |short|
+    if shurl = Shurl.find_by_short(short)
+      redirect shurl.long
+    else
+      redirect '/'
+    end
+  end
 end
