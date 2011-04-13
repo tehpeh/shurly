@@ -45,4 +45,13 @@ describe Shurly do
       last_request.url.should eql url.long
     end
   end
+  
+  describe 'GET /baduri' do
+    it 'redirects to home' do
+      Shurl.stub(:find_by_short).and_return(false)
+      get '/baduri'
+      follow_redirect!
+      last_request.url.should eql 'http://www.amc.org.au/'
+    end
+  end
 end

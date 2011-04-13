@@ -40,7 +40,7 @@ class Shurly < Sinatra::Base
     if shurl = Shurl.find_by_short(short)
       redirect shurl.long
     else
-      redirect '/'
+      redirect HOMEPAGE
     end
   end
 end
