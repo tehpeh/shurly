@@ -14,6 +14,6 @@ describe "Shurly", :type => :acceptance do
     page.should have_content 'asdfgh'
   end
 
-  it "converts a long url into a short url"#, :js => true do
+  it "saves a long url as a short url"#, :js => true do
 
 end
