@@ -2,15 +2,16 @@ require 'sinatra/base'
 require 'haml'
 require 'active_record'
 require 'sqlite3'
-require File.expand_path(File.join(File.dirname(__FILE__), 'lib', 'security'))
+autoload :Application, File.expand_path(File.join(File.dirname(__FILE__), 'lib', 'application'))
 include Application::Security
+include Application::Logging
+autoload :UriValidator, File.expand_path(File.join(File.dirname(__FILE__), 'lib', 'uri_validator'))
 
+# ActiveRecord models
 database_config = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'database.yml'))
-
 ActiveRecord::Base.establish_connection(
   database_config[ENV['RACK_ENV']]
 )
-
 Dir.glob(File.join(File.dirname(__FILE__), 'models', '*.rb')).each {|file| 
   require file
 }
@@ -34,6 +35,12 @@ class Shurly < Sinatra::Base
     protected_by_ip
     @urls = Shurl.all
     haml :'admin/index'
+  end
+  
+  post '/admin/shurl' do
+    protected_by_ip
+    url = params[:url]
+    Shurl.create('long' => url[:long], 'short' => url[:short])
   end
   
   get %r{^/([a-zA-Z0-9]{1,6})$} do |short|

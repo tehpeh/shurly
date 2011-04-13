@@ -5,7 +5,7 @@ describe "Shurly", :type => :acceptance do
   Capybara.app = Shurly
 
   it "redirects a short url to a long url" do
-    Shurl.create(:long => '/admin', :short => 'asdfgh')
+    Shurl.create(:long => 'http:///admin', :short => 'asdfgh')
     visit '/asdfgh'
     current_path.should eql '/admin'
     # NOTE: rack_test does not support redirect to an external site,

@@ -1,7 +1,15 @@
 module Application
+  module Logging
+
+    protected
+
+    def log(str)
+      puts "#{Time.now} #{str}"
+    end
+  end
+  
   module Security
-    require File.expand_path(File.join(File.dirname(__FILE__), 'logging'))
-    include Application::Logging
+    include Logging
     
     protected
 
@@ -14,6 +22,5 @@ module Application
         end
       end
     end
-    
   end
 end

@@ -54,4 +54,22 @@ describe Shurly do
       last_request.url.should eql 'http://www.amc.org.au/'
     end
   end
+  
+  describe 'POST /admin/shurl' do
+    context 'only a long url is provided' do
+      it 'creates a new shurl' do
+        params = { :url => { 'long' => 'http://rubygems.org', 'short' => nil } }
+        Shurl.should_receive(:create).with(params[:url]).and_return(true)
+        post '/admin/shurl', params
+     end
+   end
+   
+   context 'both long and short url are provided' do
+     it 'creates a new shurl' do
+       params = { :url => { 'long' => 'http://rubygems.org', 'short' => 'qwerty' } }
+       Shurl.should_receive(:create).with(params[:url]).and_return(true)
+       post '/admin/shurl', params
+    end
+  end
+  end
 end

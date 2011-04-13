@@ -8,9 +8,9 @@ describe "Shurly", :type => :acceptance do
   Capybara.app = Shurly
 
   it "displays a list of long and short urls" do
-    Shurl.create(:long => 'http://www.amc.org.au/', :short => 'asdfgh')
+    Shurl.create(:long => 'http://rubygems.org/', :short => 'asdfgh')
     visit '/admin'
-    page.should have_content 'http://www.amc.org.au/'
+    page.should have_content 'http://rubygems.org/'
     page.should have_content 'asdfgh'
   end
 

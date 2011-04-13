@@ -16,5 +16,45 @@ class Shurl < ActiveRecord::Base
   #  generate short
   #    if short exists, generate short, stop trying at 100th time
   #  return record
+ 
+  validates :long, 
+    :presence => true, 
+    :uniqueness => true, 
+    :uri => { :valid_scheme => ['http', 'https'] }
+  validates :short, 
+    :presence => true, 
+    :uniqueness => true
   
+  before_validation :set_short, :if => :short_nil?
+  
+  def self.create(params)
+    Shurl.find_by_long(params[:long]) || super(params)
+  end
+  
+  def self.create!(params)
+    Shurl.find_by_long(params[:long]) || super(params)
+  end
+  
+  protected
+  
+  def short_nil?
+    self.short.nil?
+  end
+  
+  def set_short  # raises RuntimeError
+    short = generate_short
+    i = 0
+    while Shurl.exists?(:short => short)
+      log "Collision with #{short}"
+      short = generate_short
+      i += 1
+      raise 'could not generate a unique short url' if i >= 100
+    end
+    self.short = short
+  end
+  
+  def generate_short
+    chars = %w{ b c d f g h j k m n p q r s t v w x y z }
+    (1..6).map {chars[rand(chars.count)]}.join
+  end
 end
