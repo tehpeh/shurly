@@ -56,24 +56,56 @@ describe Shurly do
   end
   
   describe 'POST /admin/shurl' do
+    let(:shurl) { mock(Shurl, :valid? => true, :to_json => "{shurl:{long:http://rubygems.org}}") }
+    let(:params) { { :long => 'http://rubygems.org' } }
+    
     before(:each) do
       stub protected_by_ip
+      Shurl.stub(:create).and_return(shurl)
     end
     
     context 'only a long url is provided' do
       it 'creates a new shurl' do
-        params = { :url => { 'long' => 'http://rubygems.org', 'short' => nil } }
-        Shurl.should_receive(:create).with(params[:url]).and_return(true)
+        params.merge!( { :short => '' } )
+        Shurl.should_receive(:create).with(params).and_return(shurl)
         post '/admin/shurl', params
      end
-   end
-   
-   context 'both long and short url are provided' do
-     it 'creates a new shurl' do
-       params = { :url => { 'long' => 'http://rubygems.org', 'short' => 'qwerty' } }
-       Shurl.should_receive(:create).with(params[:url]).and_return(true)
-       post '/admin/shurl', params
     end
-  end
+   
+    context 'both long and short url are provided' do
+      it 'creates a new shurl' do
+        params.merge!( {:short => 'qwerty' } )
+        Shurl.should_receive(:create).with(params).and_return(shurl)
+        post '/admin/shurl', params
+      end
+    end
+    
+    context 'the long url is good' do
+      it 'returns status created' do
+        post '/admin/shurl', params
+        last_response.status.should eql 201
+      end
+      
+      it 'returns the shurl as json' do
+        post '/admin/shurl', params
+        last_response.body.should eql shurl.to_json
+      end
+    end
+    
+    context 'the long url is bad' do
+      before(:each) do
+        shurl.stub(:valid? => false)
+      end
+
+      it 'returns status bad request' do
+        post '/admin/shurl', params
+        last_response.status.should eql 400
+      end
+      
+      it 'returns an error message as text' do
+        post '/admin/shurl', params
+        last_response.body.should eql "URI not valid"
+      end
+    end
   end
 end

@@ -25,6 +25,10 @@ class Shurly < Sinatra::Base
     #also_reload "*.haml"
     #dont_reload "log/*"
   end
+  
+  configure do
+    set :app_file, File.expand_path(__FILE__)
+  end
 
   HOMEPAGE = 'http://www.amc.org.au/' unless defined?(HOMEPAGE)
 
@@ -37,13 +41,20 @@ class Shurly < Sinatra::Base
     @urls = Shurl.all
     haml :'admin/index'
   end
-  
+
   post '/admin/shurl' do
     protected_by_ip
-    url = params[:url]
-    Shurl.create('long' => url[:long], 'short' => url[:short])
+    content_type :json
+    shurl = Shurl.create(:long => params[:long], :short => params[:short])
+    if shurl.valid?
+      status 201 # Created
+      shurl.to_json
+    else
+      status 400 # Bad request
+      "URI not valid"
+    end
   end
-  
+
   get %r{^/([a-zA-Z0-9]{1,6})$} do |short|
     if shurl = Shurl.visit(short)
       redirect shurl.long

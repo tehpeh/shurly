@@ -25,7 +25,7 @@ class Shurl < ActiveRecord::Base
     :presence => true, 
     :uniqueness => true
   
-  before_validation :set_short, :if => :short_nil?
+  before_validation :set_short, :if => :short_blank?
   
   def self.create(params)
     Shurl.find_by_long(params[:long]) || super(params)
@@ -47,8 +47,8 @@ class Shurl < ActiveRecord::Base
   
   protected
   
-  def short_nil?
-    self.short.nil?
+  def short_blank?
+    self.short.blank?
   end
   
   def set_short  # raises RuntimeError
