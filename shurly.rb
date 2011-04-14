@@ -21,6 +21,7 @@ class Shurly < Sinatra::Base
     require "sinatra/reloader"
     register Sinatra::Reloader
     also_reload "lib/*.rb"
+    also_reload "models/*.rb"
     #also_reload "*.haml"
     #dont_reload "log/*"
   end
@@ -44,7 +45,7 @@ class Shurly < Sinatra::Base
   end
   
   get %r{^/([a-zA-Z0-9]{1,6})$} do |short|
-    if shurl = Shurl.find_by_short(short)
+    if shurl = Shurl.visit(short)
       redirect shurl.long
     else
       redirect HOMEPAGE

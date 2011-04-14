@@ -1,5 +1,12 @@
 %table
+  %tr
+    %th URI
+    %th Short
+    %th Request count
+    %th Last requested
   - @urls.each do |url|
     %tr
       %td= url.long
       %td= url.short
+      %td= url.request_count
+      %td= url.last_request_at

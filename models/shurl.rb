@@ -35,6 +35,16 @@ class Shurl < ActiveRecord::Base
     Shurl.find_by_long(params[:long]) || super(params)
   end
   
+  def self.visit(short)
+    shurl = Shurl.find_by_short(short)
+    unless shurl.nil?
+      shurl.request_count += 1
+      shurl.last_request_at = Time.now
+      shurl.save
+    end
+    shurl
+  end
+  
   protected
   
   def short_nil?

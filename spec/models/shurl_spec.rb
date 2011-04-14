@@ -30,8 +30,22 @@ describe Shurl do
     end
   end
   
+  describe '#visit' do
+    before(:each) do
+      Shurl.create(:long => 'http://rubygems.org', :short => 'qwerty')
+    end
+    
+    it 'increments the request counter' do
+      expect {Shurl.visit('qwerty')}.to change{Shurl.find_by_short('qwerty').request_count}.by(1)
+    end
+    
+    it 'updates the last request at timestamp' do
+      expect {Shurl.visit('qwerty')}.to change{Shurl.find_by_short('qwerty').last_request_at}
+    end
+  end
+  
   describe '.create' do
-    it 'is reuses a record if long already exists' do
+    it 'reuses a record if long already exists' do
       first  = Shurl.create(:long => 'http://rubygems.org')
       second = Shurl.create(:long => 'http://rubygems.org')
       first.should eql second
@@ -40,7 +54,7 @@ describe Shurl do
   end
   
   describe '.create!' do
-    it 'is reuses a record if long already exists' do
+    it 'reuses a record if long already exists' do
       first  = Shurl.create!(:long => 'http://rubygems.org')
       second = Shurl.create!(:long => 'http://rubygems.org')
       first.should eql second

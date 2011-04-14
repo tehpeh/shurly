@@ -31,11 +31,11 @@ describe Shurly do
       :short => 'qwerty') }
       
     before(:each) do
-      Shurl.stub(:find_by_short).and_return(url)
+      Shurl.stub(:visit).and_return(url)
     end
       
     it 'finds a long url' do
-      Shurl.should_receive(:find_by_short)
+      Shurl.should_receive(:visit)
       get url.short
     end
     
@@ -48,7 +48,7 @@ describe Shurly do
   
   describe 'GET /baduri' do
     it 'redirects to home' do
-      Shurl.stub(:find_by_short).and_return(false)
+      Shurl.stub(:visit).and_return(false)
       get '/baduri'
       follow_redirect!
       last_request.url.should eql 'http://www.amc.org.au/'
@@ -56,6 +56,10 @@ describe Shurly do
   end
   
   describe 'POST /admin/shurl' do
+    before(:each) do
+      stub protected_by_ip
+    end
+    
     context 'only a long url is provided' do
       it 'creates a new shurl' do
         params = { :url => { 'long' => 'http://rubygems.org', 'short' => nil } }
