@@ -18,7 +18,7 @@ describe 'Shurly admin', :type => :acceptance do
     visit '/admin'
     fill_in 'long', :with => 'http://rubygems.org/'
     click_on 'add'
-    find('textarea#short', :text => /undefined\/[a-z]{6}/i).should be  # in selenium hostname is 'undefined'
+    find('textarea#short', :text => /\/[a-z]{6}/i).should be
     Shurl.exists?(:long => 'http://rubygems.org/').should be
   end
   
@@ -26,7 +26,7 @@ describe 'Shurly admin', :type => :acceptance do
     visit '/admin'
     fill_in 'long', :with => "http://rubygems.org/\nhttp://google.com/"
     click_on 'add'
-    find('textarea#short', :text => /undefined\/[a-z]{6}/i).should be
+    find('textarea#short', :text => /\/[a-z]{6}/i).should be
     Shurl.exists?(:long => 'http://rubygems.org/').should be
     Shurl.exists?(:long => 'http://google.com/').should be
   end

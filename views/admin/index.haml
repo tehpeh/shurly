@@ -9,8 +9,8 @@
           url: "/admin/shurl",
           data: form = {long: url},
           async: false,
-          success: function(data) { $("textarea#short").append(location.origin + 
-            "/" + data.shurl.short + "\n"); },
+          success: function(data) { $("textarea#short").append(location.protocol + 
+            "//" + location.host + "/" + data.shurl.short + "\n"); },
           error: function(response) { $("textarea#short").append(response.responseText + "\n"); }
         });
       });
@@ -21,7 +21,7 @@
   %label URI
   %textarea#long{:name => 'long'}
   %label Short
-  %textarea#short{:name => 'short', :disabled => true}
+  %textarea#short{:name => 'short', :readonly => true}
   %input#add{:type => 'submit', :name => 'add', :value => 'Add'}
   %input#reset{:type => 'reset'}
   /%img#ajax-status{:src => '/images/ajax-loader-small.gif', :style => 'display: none;'}
