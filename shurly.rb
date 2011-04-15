@@ -1,7 +1,6 @@
 require 'sinatra/base'
 require 'haml'
 require 'active_record'
-require 'sqlite3'
 autoload :Application, File.expand_path(File.join(File.dirname(__FILE__), 'lib', 'application'))
 include Application::Security
 include Application::Logging
@@ -18,12 +17,17 @@ Dir.glob(File.join(File.dirname(__FILE__), 'models', '*.rb')).each {|file|
 
 class Shurly < Sinatra::Base
   configure :development do |c|
+    require 'sqlite3'
     require "sinatra/reloader"
     register Sinatra::Reloader
     also_reload "lib/*.rb"
     also_reload "models/*.rb"
     #also_reload "*.haml"
     #dont_reload "log/*"
+  end
+  
+  configure :test do
+    require 'sqlite3'
   end
   
   configure do
