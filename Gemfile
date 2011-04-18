@@ -2,6 +2,7 @@ source :rubygems
 
 gem 'sinatra'
 gem 'haml'
+gem 'sass'
 gem 'activerecord'
 gem 'heroku'
 gem 'rake'

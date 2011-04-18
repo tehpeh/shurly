@@ -267,7 +267,9 @@ span#mailing-lists-link a:hover {
   clear: both;
   text-align: left;
   padding: 20px 12px;
-  background: #fff url('/images/main-bg.png') top center no-repeat;
+  margin-bottom: 10px;
+  background-color: white;
+  border-radius: 10px;
   min-height: 800px;
 }  
 
@@ -289,21 +291,18 @@ span.end_date {
 
 form#shurl {
   margin-bottom: 50px;
-}
-
-form#shurl textarea {
-  width: 455px;
-  height: 200px;
-}
-
-form#shurl #input-left {
-  margin-right: 20px;
-  margin-bottom: 20px;
-  float: left;
-}
-
-form#shurl #input-right {
-  margin-bottom: 20px;
+  textarea {
+    width: 455px;
+    height: 200px;
+  }
+  #input-left {
+    margin-right: 20px;
+    margin-bottom: 20px;
+    float: left;
+  }
+  #input-right {
+    margin-bottom: 20px;
+  }
 }
 
 #footer {
@@ -311,6 +310,5 @@ form#shurl #input-right {
   color: #444;
   font-size: 12px;
   text-align: center;
-  height: 20px;
-  background: #fff url('/images/footer-bg.png') bottom center no-repeat;
+  height: 20px;  
 }

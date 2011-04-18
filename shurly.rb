@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'haml'
+require 'sass'
 require 'active_record'
 autoload :Application, File.expand_path(File.join(File.dirname(__FILE__), 'lib', 'application'))
 include Application::Security
@@ -38,6 +39,10 @@ class Shurly < Sinatra::Base
 
   get '/' do
     redirect HOMEPAGE
+  end
+  
+  get '/stylesheets/screen.css' do
+    scss :screen
   end
 
   get '/admin' do
