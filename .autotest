@@ -3,7 +3,7 @@ Autotest.add_hook(:initialize) { |at|
   at.add_exception %r{^./tmp}  # ignore temp files, lest autotest will run again, and again... 
   at.add_exception %r{^./log}  # ignore log/
   at.add_exception %r{^./db}   # ignore db/
-  at.add_exception %r{^\.*}    # ignore dot files
+  #at.add_exception %r{^\.*}    # do not do this, breaks autotest. Be more specific.
   #at.clear_mappings           # take out the default (test/test*rb)
   at.add_mapping(%r{^*\.rb$}) {|f, _|
     Dir['spec/**/*_spec.rb']
