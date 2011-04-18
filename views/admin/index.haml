@@ -18,10 +18,14 @@
   });
 
 %form#shurl
-  %label URI
-  %textarea#long{:name => 'long'}
-  %label Short
-  %textarea#short{:name => 'short', :readonly => true}
+  %div#input-left
+    %div
+      %label URI
+    %textarea#long{:name => 'long'}
+  %div#input-right
+    %div
+      %label Short
+    %textarea#short{:name => 'short', :readonly => true}
   %input#add{:type => 'submit', :name => 'add', :value => 'Add'}
   %input#reset{:type => 'reset'}
   /%img#ajax-status{:src => '/images/ajax-loader-small.gif', :style => 'display: none;'}
