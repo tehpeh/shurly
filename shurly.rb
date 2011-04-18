@@ -41,8 +41,9 @@ class Shurly < Sinatra::Base
     redirect HOMEPAGE
   end
   
-  get '/stylesheets/screen.css' do
-    scss :screen
+  get '/stylesheets/:name.css' do
+   content_type 'text/css', :charset => 'utf-8'
+   scss :"#{params[:name]}"
   end
 
   get '/admin' do

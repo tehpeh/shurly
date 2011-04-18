@@ -3,14 +3,16 @@
   %head
     %meta{'http-equiv' =>'Content-Type', :content => 'text/html; charset=utf-8'}
     %link{:href => '/stylesheets/screen.css', :rel => 'stylesheet', :type =>'text/css'}
-    %script{:type => 'text/javascript', :src => '/javascripts/vendor/jquery-1.5.2.min.js'}
+    /[if lt IE 9]
+      %link{:href => '/stylesheets/ie.css', :rel => 'stylesheet', :type => 'text/css'}
+    %script{:src => '/javascripts/vendor/jquery-1.5.2.min.js', :type => 'text/javascript'}
     %title Shurly
     
 
   %body
     #wrapper
       #header
-        %img#amc-logo(src="/images/amc-logo.png" alt="Australian Medical Council")
+        %img#amc-logo{:src => "/images/amc-logo.png", :alt => "Australian Medical Council"}
         /...you can't be serious
         /I am serious... and don't call me Shirley.
 
