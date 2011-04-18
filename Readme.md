@@ -9,22 +9,25 @@ A URL shortener.
 Development and Testing
 -----------------------
 
-Dependencies:
+### Dependencies:
 
 sqlite3
 
-Setup:
+### Setup:
 
 cp config/database.example.yml config/database.yml
+
 bundle install
+
 rake db:migrate
+
 RACK_ENV=test rake db:migrate
 
-Run:
+### Run:
 
 rackup [-p 3000 -s thin]
 
-Testing:
+### Testing:
 
 autotest
 
