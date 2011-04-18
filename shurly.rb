@@ -61,7 +61,7 @@ class Shurly < Sinatra::Base
       shurl.to_json
     else
       status 400 # Bad request
-      "URI not valid"
+      "URL not valid"
     end
   end
 

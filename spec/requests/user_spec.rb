@@ -8,8 +8,8 @@ describe 'Shurly user', :type => :acceptance do
     Shurl.create(:long => 'http:///admin', :short => 'asdfgh')
   end
 
-  describe 'accessing a short url' do
-    it 'is redirected to a long url' do
+  describe 'accessing a short URI' do
+    it 'is redirected to a long URI' do
       visit '/asdfgh'
       current_path.should eql '/admin'
       # NOTE: rack_test does not support redirect to an external site,

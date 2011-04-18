@@ -26,23 +26,23 @@ describe Shurly do
   end
   
   describe 'GET /qwerty' do
-    let(:url) { mock(Shurl, 
+    let(:shurl) { mock(Shurl, 
       :long => 'http://rubygems.org/', 
       :short => 'qwerty') }
       
     before(:each) do
-      Shurl.stub(:visit).and_return(url)
+      Shurl.stub(:visit).and_return(shurl)
     end
       
-    it 'finds a long url' do
+    it 'finds a long URI' do
       Shurl.should_receive(:visit)
-      get url.short
+      get shurl.short
     end
     
-    it 'redirects to a long url' do
-      get url.short
+    it 'redirects to a long URI' do
+      get shurl.short
       follow_redirect!
-      last_request.url.should eql url.long
+      last_request.url.should eql shurl.long
     end
   end
   
@@ -64,7 +64,7 @@ describe Shurly do
       Shurl.stub(:create).and_return(shurl)
     end
     
-    context 'only a long url is provided' do
+    context 'only a long URI is provided' do
       it 'creates a new shurl' do
         params.merge!( { :short => '' } )
         Shurl.should_receive(:create).with(params).and_return(shurl)
@@ -72,7 +72,7 @@ describe Shurly do
      end
     end
    
-    context 'both long and short url are provided' do
+    context 'both long and short URIs are provided' do
       it 'creates a new shurl' do
         params.merge!( {:short => 'qwerty' } )
         Shurl.should_receive(:create).with(params).and_return(shurl)
@@ -80,7 +80,7 @@ describe Shurly do
       end
     end
     
-    context 'the long url is good' do
+    context 'the long URI is good' do
       it 'returns status created' do
         post '/admin/shurl', params
         last_response.status.should eql 201
@@ -92,7 +92,7 @@ describe Shurly do
       end
     end
     
-    context 'the long url is bad' do
+    context 'the long URI is bad' do
       before(:each) do
         shurl.stub(:valid? => false)
       end
@@ -104,7 +104,7 @@ describe Shurly do
       
       it 'returns an error message as text' do
         post '/admin/shurl', params
-        last_response.body.should eql "URI not valid"
+        last_response.body.should eql "URL not valid"
       end
     end
   end
