@@ -48,8 +48,14 @@ class Shurly < Sinatra::Base
 
   get '/admin' do
     protected_by_ip
-    @urls = Shurl.all
     haml :'admin/index'
+  end
+  
+  get '/admin/shurls' do
+    protected_by_ip
+    content_type :json
+    status 200
+    Shurl.all.to_json
   end
 
   post '/admin/shurls' do

@@ -1,6 +1,7 @@
 :javascript
   $(document).ready(function() {
-    $("#shurl").submit(function(event) {
+  
+    $("form#shurl").submit(function(event) {
       event.preventDefault();
       $("textarea#short").html(null);
       $.each($("textarea#long").val().split("\n"), function(index,url) {
@@ -15,6 +16,39 @@
         });
       });
     });
+    
+    $("button#show").click(function() {
+      load_shurls(true);
+      $(this).hide();
+    });
+    
+    function load_shurls(show) {
+      $.ajax({
+        type: 'GET',
+        url: "/admin/shurls",
+        success: function(data) { 
+          $("table#shurl-list").data('shurls', data);
+          if (show == true) { show_shurls(); }
+        },
+        error: function(response) { 
+          $(document.createElement('div')).html('Could not load data').insertAfter("table#shurl-list");
+        }
+      });
+    }
+    
+    function show_shurls() {
+      data = $("table#shurl-list").data('shurls');
+      $.each(data, function(index, s) {
+        $("table#shurl-list").append(
+          $(document.createElement('tr')).append(
+            $(document.createElement('td')).html(s.shurl.long),
+            $(document.createElement('td')).html(s.shurl.short),
+            $(document.createElement('td')).html(s.shurl.request_count),
+            $(document.createElement('td')).html(s.shurl.last_request_at)
+          )
+        );
+      });
+    }
   });
 
 %form#shurl
@@ -29,15 +63,11 @@
   %input#add{:type => 'submit', :name => 'add', :value => 'Add'}
   %input#reset{:type => 'reset'}
 
-%table
+%table#shurl-list
   %tr
     %th URL
     %th Short
     %th Request count
     %th Last requested
-  - @urls.each do |url|
-    %tr
-      %td= url.long
-      %td= url.short
-      %td= url.request_count
-      %td= url.last_request_at
+%div#show
+  %button#show Show URLs

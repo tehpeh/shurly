@@ -126,4 +126,18 @@ describe Shurly do
       end
     end
   end
+  
+  describe 'GET /admin/shurls' do
+    let(:shurls) { "[{shurl:{long:http://rubygems.org,short:asdf}}]" }
+    
+    before(:each) do
+      Shurl.stub_chain(:all, :to_json).and_return(shurls)
+    end
+    
+    it 'returns a list of shurls as json' do
+      get '/admin/shurls'
+      last_response.status.should eql 200
+      last_response.body.should eql shurls
+    end
+  end
 end
