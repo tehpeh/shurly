@@ -6,7 +6,7 @@
       $.each($("textarea#long").val().split("\n"), function(index,url) {
         $.ajax({
           type: 'POST',
-          url: "/admin/shurl",
+          url: "/admin/shurls",
           data: form = {long: url},
           async: false,
           success: function(data) { $("textarea#short").append(location.protocol + 

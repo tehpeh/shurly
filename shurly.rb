@@ -52,7 +52,7 @@ class Shurly < Sinatra::Base
     haml :'admin/index'
   end
 
-  post '/admin/shurl' do
+  post '/admin/shurls' do
     protected_by_ip
     content_type :json
     begin

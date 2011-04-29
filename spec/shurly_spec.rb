@@ -55,7 +55,7 @@ describe Shurly do
     end
   end
   
-  describe 'POST /admin/shurl' do
+  describe 'POST /admin/shurls' do
     let(:shurl) { mock(Shurl, :valid? => true, :to_json => "{shurl:{long:http://rubygems.org}}") }
     let(:params) { { :long => 'http://rubygems.org' } }
     
@@ -68,7 +68,7 @@ describe Shurly do
       it 'creates a new shurl' do
         params.merge!( { :short => '' } )
         Shurl.should_receive(:create).with(params).and_return(shurl)
-        post '/admin/shurl', params
+        post '/admin/shurls', params
      end
     end
    
@@ -76,18 +76,18 @@ describe Shurly do
       it 'creates a new shurl' do
         params.merge!( {:short => 'qwerty' } )
         Shurl.should_receive(:create).with(params).and_return(shurl)
-        post '/admin/shurl', params
+        post '/admin/shurls', params
       end
     end
     
     context 'the long URI is good' do
       it 'returns status created' do
-        post '/admin/shurl', params
+        post '/admin/shurls', params
         last_response.status.should eql 201
       end
       
       it 'returns the shurl as json' do
-        post '/admin/shurl', params
+        post '/admin/shurls', params
         last_response.body.should eql shurl.to_json
       end
     end
@@ -98,12 +98,12 @@ describe Shurly do
       end
 
       it 'returns status bad request' do
-        post '/admin/shurl', params
+        post '/admin/shurls', params
         last_response.status.should eql 400
       end
       
       it 'returns an error message as text' do
-        post '/admin/shurl', params
+        post '/admin/shurls', params
         last_response.body.should eql "URL not valid"
       end
     end
@@ -116,12 +116,12 @@ describe Shurly do
       end
       
       it 'returns status bad request' do
-        post '/admin/shurl', params
+        post '/admin/shurls', params
         last_response.status.should eql 400
       end
       
       it 'returns an error message as text' do
-        post '/admin/shurl', params
+        post '/admin/shurls', params
         last_response.body.should eql error.message
       end
     end
