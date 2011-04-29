@@ -4,15 +4,21 @@
     $("form#shurl").submit(function(event) {
       event.preventDefault();
       $("textarea#short").html(null);
-      $.each($("textarea#long").val().split("\n"), function(index,url) {
+      longs = $("textarea#long").val().split("\n");
+      if (longs.length > 99) { alert("This may take a while, please be patient."); }
+      $.each(longs, function(index,url) {
         $.ajax({
           type: 'POST',
           url: "/admin/shurls",
           data: form = {long: url},
           async: false,
-          success: function(data) { $("textarea#short").append(location.protocol + 
-            "//" + location.host + "/" + data.shurl.short + "\n"); },
-          error: function(response) { $("textarea#short").append(response.responseText + "\n"); }
+          success: function(data) { 
+            $("textarea#short").append(location.protocol + 
+            "//" + location.host + "/" + data.shurl.short + "\n");
+          },
+          error: function(response) { 
+            $("textarea#short").append(response.responseText + "\n"); 
+          }
         });
       });
     });
