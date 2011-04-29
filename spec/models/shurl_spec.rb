@@ -3,15 +3,25 @@ require 'spec_helper'
 describe Shurl do
   describe '#long' do
     it 'is unique' do
-      Shurl.create(:long => 'http://rubygems.org', :short => 'qwerty')
-      Shurl.create(:long => 'http://rubygems.org', :short => 'asdfgh')
-      Shurl.find_all_by_long('http://rubygems.org').should have(1).item
+      Shurl.create(:long => 'http://rubygems.org/', :short => 'qwerty')
+      Shurl.create(:long => 'http://rubygems.org/', :short => 'asdfgh')
+      Shurl.find_all_by_long('http://rubygems.org/').should have(1).item
     end
     
     it 'is a valid web address' do
       Shurl.new(:long => 'http://rubygems.org',  :short => 'qwerty').should be_valid
       Shurl.new(:long => 'https://rubygems.org', :short => 'asdfgh').should be_valid
       Shurl.new(:long => 'oops://rubygems.org',  :short => 'zxcvbn').should_not be_valid
+    end
+    
+    it 'is normalized when saved' do
+      shurl = Shurl.create(:long => 'http://rubygems.org')
+      shurl.long.should eql 'http://rubygems.org/'
+    end
+    
+    it 'does not have leading or trailing spaces' do
+      shurl = Shurl.create(:long => '   http://rubygems.org   ')
+      shurl.long.should eql 'http://rubygems.org/'
     end
   end
   
@@ -59,6 +69,14 @@ describe Shurl do
       second = Shurl.create!(:long => 'http://rubygems.org')
       first.should eql second
       Shurl.all.should have(1).item
+    end
+  end
+  
+  describe '.find_by_long' do
+    it 'normalizes the parameter' do
+      first = Shurl.create(:long => 'http://rubygems.org/')
+      find  = Shurl.find_by_long('http://rubygems.org')
+      find.should eql first
     end
   end
 end

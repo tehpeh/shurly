@@ -107,5 +107,23 @@ describe Shurly do
         last_response.body.should eql "URL not valid"
       end
     end
+    
+    context 'a short URI could not be generated' do
+      let(:error) { RuntimeError.new("error message") }
+      
+      before(:each) do
+        Shurl.stub(:create).and_raise(error)
+      end
+      
+      it 'returns status bad request' do
+        post '/admin/shurl', params
+        last_response.status.should eql 400
+      end
+      
+      it 'returns an error message as text' do
+        post '/admin/shurl', params
+        last_response.body.should eql error.message
+      end
+    end
   end
 end

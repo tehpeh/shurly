@@ -55,13 +55,18 @@ class Shurly < Sinatra::Base
   post '/admin/shurl' do
     protected_by_ip
     content_type :json
-    shurl = Shurl.create(:long => params[:long], :short => params[:short])
-    if shurl.valid?
-      status 201 # Created
-      shurl.to_json
-    else
+    begin
+      shurl = Shurl.create(:long => params[:long], :short => params[:short])
+      if shurl.valid?
+        status 201 # Created
+        shurl.to_json
+      else
+        status 400 # Bad request
+        "URL not valid"
+      end
+    rescue Exception => e
       status 400 # Bad request
-      "URL not valid"
+      e.message
     end
   end
 

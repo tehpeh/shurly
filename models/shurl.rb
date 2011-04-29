@@ -8,7 +8,7 @@ class Shurl < ActiveRecord::Base
   #
   # chars = %w{ b c d f g h j k m n p q r s t v w x y z }
   # (1..6).map {chars[rand(chars.count)]}.join      # generate 6 chararcter string, lowercase no dodgy letters
-
+ require 'uri'
  
   validates :long, 
     :presence => true, 
@@ -19,6 +19,11 @@ class Shurl < ActiveRecord::Base
     :uniqueness => true
   
   before_validation :set_short, :if => :short_blank?
+  before_save :normalize_long
+  
+  def self.find_by_long(param)
+    super(Shurl.normalize_uri(param))
+  end
   
   def self.create(params)
     Shurl.find_by_long(params[:long]) || super(params)
@@ -38,6 +43,10 @@ class Shurl < ActiveRecord::Base
     shurl
   end
   
+  def self.normalize_uri(uri)
+    URI.parse(uri).normalize.to_s
+  end
+  
   protected
   
   def short_blank?
@@ -51,7 +60,7 @@ class Shurl < ActiveRecord::Base
       log "Collision with #{short}"
       short = generate_short
       i += 1
-      raise 'could not generate a unique short URI' if i >= 100
+      raise 'Could not generate a unique short URI' if i >= 100
     end
     self.short = short
   end
@@ -59,5 +68,9 @@ class Shurl < ActiveRecord::Base
   def generate_short
     chars = %w{ b c d f g h j k m n p q r s t v w x y z }
     (1..6).map {chars[rand(chars.count)]}.join
+  end
+  
+  def normalize_long
+    self.long = Shurl.normalize_uri(self.long)
   end
 end
