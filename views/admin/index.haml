@@ -54,6 +54,7 @@
           )
         );
       });
+      $('#shurl-list').dataTable();
     }
   });
 
@@ -70,10 +71,11 @@
   %input#reset{:type => 'reset'}
 
 %table#shurl-list
-  %tr
-    %th URL
-    %th Short
-    %th Request count
-    %th Last requested
+  %thead
+    %tr
+      %th URL
+      %th Short
+      %th Request count
+      %th Last requested
 %div#show
   %button#show Show URLs
