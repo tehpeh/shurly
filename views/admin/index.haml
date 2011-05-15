@@ -1,63 +1,3 @@
-:javascript
-  $(document).ready(function() {
-  
-    $("form#shurl").submit(function(event) {
-      event.preventDefault();
-      $("textarea#short").html(null);
-      longs = $("textarea#long").val().split("\n");
-      if (longs.length > 99) { alert("This may take a while, please be patient."); }
-      $.each(longs, function(index,url) {
-        $.ajax({
-          type: 'POST',
-          url: "/admin/shurls",
-          data: form = {long: url},
-          async: false,
-          success: function(data) { 
-            $("textarea#short").append(location.protocol + 
-            "//" + location.host + "/" + data.shurl.short + "\n");
-          },
-          error: function(response) { 
-            $("textarea#short").append(response.responseText + "\n"); 
-          }
-        });
-      });
-    });
-    
-    $("button#show").click(function() {
-      load_shurls(true);
-      $(this).hide();
-    });
-    
-    function load_shurls(show) {
-      $.ajax({
-        type: 'GET',
-        url: "/admin/shurls",
-        success: function(data) { 
-          $("table#shurl-list").data('shurls', data);
-          if (show == true) { show_shurls(); }
-        },
-        error: function(response) { 
-          $(document.createElement('div')).html('Could not load data').insertAfter("table#shurl-list");
-        }
-      });
-    }
-    
-    function show_shurls() {
-      data = $("table#shurl-list").data('shurls');
-      $.each(data, function(index, s) {
-        $("table#shurl-list").append(
-          $(document.createElement('tr')).append(
-            $(document.createElement('td')).html(s.shurl.long),
-            $(document.createElement('td')).html(s.shurl.short),
-            $(document.createElement('td')).html(s.shurl.request_count),
-            $(document.createElement('td')).html(s.shurl.last_request_at)
-          )
-        );
-      });
-      $('#shurl-list').dataTable();
-    }
-  });
-
 %form#shurl
   %div#input-left
     %div
@@ -73,9 +13,10 @@
 %table#shurl-list
   %thead
     %tr
-      %th URL
-      %th Short
-      %th Request count
-      %th Last requested
-%div#show
-  %button#show Show URLs
+      %th.long URL
+      %th.short Short
+      %th.request-count Request count
+      %th.last-request-at Last requested
+  %tbody
+    %tr
+      %td#javascript-message{:colspan => 4} JavaScript is required to see data

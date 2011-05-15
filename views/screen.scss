@@ -274,9 +274,10 @@ span#mailing-lists-link a:hover {
   min-height: 800px;
 }  
 
-table { width: 100%; border-collapse: collapse; margin-bottom: 3em;}
+table { width: 100%; border-collapse: collapse; margin-bottom: 1em; margin-top: 1em;}
 table tr th { background-color: #3E3E3E; color: #fff;}
 table tr td, table tr th { border: 1px solid #aaa; }
+table tr td#javascript-message { text-align: center;}
 table tr td.date, table tr th.date { width: 20%; }
 table tr td.meeting, table tr th.meeting { width: 50%; }
 table tr td.location, table tr th.location { width: 30%; }

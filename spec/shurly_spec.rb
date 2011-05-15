@@ -140,4 +140,23 @@ describe Shurly do
       last_response.body.should eql shurls
     end
   end
+  
+  describe 'GET /admin/shurls?format=datatables' do
+    let(:shurls) { [ mock(Shurl,
+      :long => "http://rubygems.org",
+      :short => "asdf",
+      :request_count => 1,
+      :last_request_at => "2011-05-15" 
+    ) ] }
+    
+    before(:each) do
+      Shurl.stub_chain(:all).and_return(shurls)
+    end
+    
+    it 'returns a list of shurls formatted for DataTables' do
+      get '/admin/shurls?format=datatables'
+      last_response.status.should eql 200
+      last_response.body.should eql "{\"aaData\":[[\"http://rubygems.org\",\"asdf\",1,\"2011-05-15\"]]}"
+    end
+  end
 end

@@ -55,7 +55,18 @@ class Shurly < Sinatra::Base
     protected_by_ip
     content_type :json
     status 200
-    Shurl.all.to_json
+
+    case params[:format]
+      when 'datatables' then
+        {"aaData" => Shurl.all.map { |s| [
+          s.long,
+          s.short,
+          s.request_count,
+          s.last_request_at
+        ] }}.to_json
+      else
+        Shurl.all.to_json
+    end
   end
 
   post '/admin/shurls' do

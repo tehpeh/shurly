@@ -7,7 +7,6 @@ describe 'Shurly admin', :type => :acceptance do
   it 'sees a list of long and short URIs', :js => true do
     Shurl.create(:long => 'http://rubygems.org/', :short => 'asdfgh')
     visit '/admin'
-    click_on 'show'
     page.should have_content 'http://rubygems.org/'
     page.should have_content 'asdfgh'
   end
