@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'haml'
 require 'sass'
 require 'active_record'
+require 'set_theory'
 autoload :Application, File.expand_path(File.join(File.dirname(__FILE__), 'lib', 'application'))
 include Application::Security
 include Application::Logging
@@ -12,7 +13,7 @@ database_config = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'da
 ActiveRecord::Base.establish_connection(
   database_config[ENV['RACK_ENV']]
 )
-Dir.glob(File.join(File.dirname(__FILE__), 'models', '*.rb')).each {|file| 
+Dir.glob(File.join(File.dirname(__FILE__), 'models', '*.rb')).each {|file|
   require file
 }
 
@@ -26,11 +27,11 @@ class Shurly < Sinatra::Base
     #also_reload "*.haml"
     #dont_reload "log/*"
   end
-  
+
   configure :test do
     require 'sqlite3'
   end
-  
+
   configure do
     set :app_file, File.expand_path(__FILE__)
   end
@@ -40,7 +41,7 @@ class Shurly < Sinatra::Base
   get '/' do
     redirect HOMEPAGE
   end
-  
+
   get '/stylesheets/:name.css' do
    content_type 'text/css', :charset => 'utf-8'
    scss :"#{params[:name]}"
@@ -50,7 +51,7 @@ class Shurly < Sinatra::Base
     protected_by_ip
     haml :'admin/index'
   end
-  
+
   get '/admin/shurls' do
     protected_by_ip
     content_type :json

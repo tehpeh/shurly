@@ -7,6 +7,7 @@ gem 'activerecord'
 gem 'heroku'
 gem 'rake'
 gem 'sinatra-activerecord'
+gem 'set_theory'
 
 group :development, :test do
   gem 'sinatra-reloader'
