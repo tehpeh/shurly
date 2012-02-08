@@ -19,17 +19,23 @@ cp config/database.{example.,}yml
 
 bundle install
 
-rake db:migrate
+bundle exec rake db:migrate
 
-RACK_ENV=test rake db:migrate
+RACK_ENV=test bundle exec rake db:migrate
 
 ### Run:
 
-rackup [-p 3000 -s thin]
+bundle exec rackup [-p 3000 -s thin]
 
-### Testing:
+### Test:
 
-autotest
+bundle exec rspec spec
+
+### Guard (run and test):
+
+cp Guardfile{.example,}
+
+bundle exec guard
 
 Deployment
 ----------

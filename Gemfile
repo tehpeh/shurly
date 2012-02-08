@@ -4,9 +4,9 @@ gem 'sinatra'
 gem 'haml'
 gem 'sass'
 gem 'activerecord'
+gem 'sinatra-activerecord'
 gem 'heroku'
 gem 'rake'
-gem 'sinatra-activerecord'
 gem 'set_theory'
 
 group :development, :test do
@@ -14,9 +14,9 @@ group :development, :test do
   gem 'thin'
   gem 'rspec'
   gem 'database_cleaner'
-  gem 'autotest'
-  gem 'ZenTest'
-  gem 'rack-test'
+  gem 'guard-rspec'
+  gem 'guard-process'
+  gem 'growl'
   gem 'capybara'
   gem 'sqlite3-ruby', :require => 'sqlite3'
 end
