@@ -1,14 +1,16 @@
 %form#shurl
-  %div#input-left
-    %div
-      %label URL
-    %textarea#long{:name => 'long'}
-  %div#input-right
-    %div
-      %label Result
-    %textarea#short{:name => 'short', :readonly => true}
-  %input#add{:type => 'submit', :name => 'add', :value => 'Add'}
-  %input#reset{:type => 'reset'}
+  %fieldset
+    %div#input-left
+      %div
+        %label URL
+      %textarea#long{:name => 'long'}
+    %div#input-right
+      %div
+        %label Result
+      %textarea#short{:name => 'short', :readonly => true}
+    .form-actions
+      %input#add.btn-primary{:type => 'submit', :name => 'add', :value => 'Add'}
+      %input#reset.btn{:type => 'reset'}
 
 %table#shurl-list
   %thead
