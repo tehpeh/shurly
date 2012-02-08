@@ -115,6 +115,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  capybara
   capybara-webkit
   database_cleaner
   growl

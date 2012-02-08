@@ -36,7 +36,7 @@ class Shurly < Sinatra::Base
     set :app_file, File.expand_path(__FILE__)
   end
 
-  HOMEPAGE = 'http://www.amc.org.au/' unless defined?(HOMEPAGE)
+  HOMEPAGE = ENV['HOME_URL'] unless defined?(HOMEPAGE)
 
   get '/' do
     redirect HOMEPAGE

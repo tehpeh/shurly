@@ -23,6 +23,8 @@ bundle exec rake db:migrate
 
 RACK_ENV=test bundle exec rake db:migrate
 
+export HOME_URL='http://something.com/'
+
 ### Run:
 
 bundle exec rackup [-p 3000 -s thin]

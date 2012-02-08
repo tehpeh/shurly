@@ -1,5 +1,8 @@
 ENV['RACK_ENV'] ||= 'test'
 
+# Required env variables
+ENV['HOME_URL'] = 'http://test.com/'
+
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'shurly'))
 require 'rack/test'
 require 'rspec'
