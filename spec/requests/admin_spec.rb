@@ -16,7 +16,7 @@ describe 'Shurly admin', :type => :request do
     find('textarea#short', :text => /\/[a-z]{6}/i).should be
     Shurl.exists?(:long => 'http://rubygems.org/').should be
   end
-  
+
   it 'can save a list of long URIs to short URIs', :js => true do
     visit '/admin'
     fill_in 'long', :with => "http://rubygems.org/\nhttp://google.com/"

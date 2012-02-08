@@ -9,30 +9,30 @@ class Shurl < ActiveRecord::Base
   # chars = %w{ b c d f g h j k m n p q r s t v w x y z }
   # (1..6).map {chars[rand(chars.count)]}.join      # generate 6 chararcter string, lowercase no dodgy letters
  require 'uri'
- 
-  validates :long, 
-    :presence => true, 
-    :uniqueness => true, 
+
+  validates :long,
+    :presence => true,
+    :uniqueness => true,
     :uri => { :valid_scheme => ['http', 'https'] }
-  validates :short, 
-    :presence => true, 
+  validates :short,
+    :presence => true,
     :uniqueness => true
-  
+
   before_validation :set_short, :if => :short_blank?
   before_save :normalize_long
-  
+
   def self.find_by_long(param)
     super(Shurl.normalize_uri(param))
   end
-  
+
   def self.create(params)
     Shurl.find_by_long(params[:long]) || super(params)
   end
-  
+
   def self.create!(params)
     Shurl.find_by_long(params[:long]) || super(params)
   end
-  
+
   def self.visit(short)
     shurl = Shurl.find_by_short(short)
     unless shurl.nil?
@@ -42,17 +42,17 @@ class Shurl < ActiveRecord::Base
     end
     shurl
   end
-  
+
   def self.normalize_uri(uri)
     URI.parse(uri).normalize.to_s
   end
-  
+
   protected
-  
+
   def short_blank?
     self.short.blank?
   end
-  
+
   def set_short  # raises RuntimeError
     short = generate_short
     i = 0
@@ -64,12 +64,12 @@ class Shurl < ActiveRecord::Base
     end
     self.short = short
   end
-  
+
   def generate_short
     chars = %w{ b c d f g h j k m n p q r s t v w x y z }
     (1..6).map {chars[rand(chars.count)]}.join
   end
-  
+
   def normalize_long
     self.long = Shurl.normalize_uri(self.long)
   end
