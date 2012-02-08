@@ -15,7 +15,7 @@ sqlite3
 
 ### Setup:
 
-cp config/database.example.yml config/database.yml
+cp config/database.{example.,}yml
 
 bundle install
 
