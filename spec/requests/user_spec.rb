@@ -1,8 +1,6 @@
 require 'spec_helper'
-require 'capybara/rspec'
 
-describe 'Shurly user', :type => :acceptance do
-  Capybara.app = Shurly
+describe 'Shurly user', :type => :request do
 
   before(:each) do
     Shurl.create(:long => 'http:///admin', :short => 'asdfgh')

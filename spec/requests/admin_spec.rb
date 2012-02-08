@@ -1,8 +1,6 @@
 require 'spec_helper'
-require 'capybara/rspec'
 
-describe 'Shurly admin', :type => :acceptance do
-  Capybara.app = Shurly
+describe 'Shurly admin', :type => :request do
 
   it 'sees a list of long and short URIs', :js => true do
     Shurl.create(:long => 'http://rubygems.org/', :short => 'asdfgh')

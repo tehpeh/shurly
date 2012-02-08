@@ -18,5 +18,6 @@ group :development, :test do
   gem 'guard-process'
   gem 'growl'
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'sqlite3-ruby', :require => 'sqlite3'
 end
